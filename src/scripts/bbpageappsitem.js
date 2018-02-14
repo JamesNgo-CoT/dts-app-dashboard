@@ -1,7 +1,7 @@
 const BBPageAppsItemModel = Backbone.Model.extend({
   defaults: {
     name: '',
-    description: '',
+    desc: '',
     client: '',
     type: 'Standalone',
     visibility: 'Intranet',
@@ -186,10 +186,10 @@ const BBPageAppsItemView = Backbone.View.extend({
           }]
         }, {
           fields: [{
-            id: 'description',
+            id: 'desc',
             title: 'Description',
             type: 'textarea',
-            bindTo: 'description'
+            bindTo: 'desc'
           }]
         }, {
           fields: [{
@@ -336,15 +336,27 @@ const BBPageAppsItemView = Backbone.View.extend({
           }]
         }, {
           fields: [{
+            id: 'qaTester',
+            title: 'Assigned to QA Tester',
+            type: 'text',
+            bindTo: 'qaTester'
+          }, {
+            id: 'qaApprovalDate',
+            title: 'QA Approval Date',
+            type: 'datetimepicker',
+            bindTo: 'qaApprovalDate'
+          }]
+        }, {
+          fields: [{
             id: 'uatTester',
             title: 'Assigned to UAT Tester',
             type: 'text',
             bindTo: 'uatTester'
           }, {
-            id: 'qaApprovalDate',
-            title: 'QA Approval Date?',
+            id: 'uatApprovalDate',
+            title: 'UAT Approval Date?',
             type: 'datetimepicker',
-            bindTo: 'qaApprovalDate'
+            bindTo: 'uatApprovalDate'
           }]
         }, {
           fields: [{
@@ -354,7 +366,7 @@ const BBPageAppsItemView = Backbone.View.extend({
             bindTo: 'accessibilityTester'
           }, {
             id: 'accessibilityApprovalDate',
-            title: 'Accessibility Approval Date?',
+            title: 'Accessibility Approval Date',
             type: 'datetimepicker',
             bindTo: 'accessibilityApprovalDate'
           }]
@@ -472,7 +484,7 @@ const BBPageAppsItemView = Backbone.View.extend({
         }, {
           fields: [{
             type: 'html',
-            html: `<span class="staticlabel"><span>Description</span></span><p>${this.model.get('description') ? this.model.get('description').replace(/(\r\n|\r|\n)/g, '<br>') : '-'}</p>`
+            html: `<span class="staticlabel"><span>Description</span></span><p>${this.model.get('desc') ? this.model.get('desc').replace(/(\r\n|\r|\n)/g, '<br>') : '-'}</p>`
           }]
         }, {
           fields: [{
@@ -538,13 +550,23 @@ const BBPageAppsItemView = Backbone.View.extend({
           }]
         }, {
           fields: [{
+            title: 'QA Tester',
+            type: 'static',
+            value: this.model.get('qaTester') || '-'
+          }, {
+            title: 'QA Approval Date',
+            type: 'static',
+            value: this.model.get('qaApprovalDate') || '-'
+          }]
+        }, {
+          fields: [{
             title: 'UAT Tester',
             type: 'static',
             value: this.model.get('uatTester') || '-'
           }, {
-            title: 'QA Approval Date?',
+            title: 'UAT Approval Date',
             type: 'static',
-            value: this.model.get('qaApprovalDate') || '-'
+            value: this.model.get('uatApprovalDate') || '-'
           }]
         }, {
           fields: [{
@@ -552,7 +574,7 @@ const BBPageAppsItemView = Backbone.View.extend({
             type: 'static',
             value: this.model.get('accessibilityTester') || '-'
           }, {
-            title: 'Accessibility Approval Date?',
+            title: 'Accessibility Approval Date',
             type: 'static',
             value: this.model.get('accessibilityApprovalDate') || '-'
           }]
@@ -620,6 +642,9 @@ const BBPageAppsItemView = Backbone.View.extend({
     const version = $.extend({
       render: (data, type, row) => data + (row.isRetired ? '' : ' (Active)')
     }, BBControlAppsDatatableView.columns.version);
+    // const link = $.extend({
+    //   render: (data, type, row) => '<a href="#app/' + data + '/view" class="btn btn-default">View</a>',
+    // }, BBControlAppsDatatableView.columns.link);
     this.datatableView.render({
       config: {
         $filter: `originalId eq '${this.model.get('originalId')}'`,
