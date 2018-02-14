@@ -1,0 +1,126 @@
+<!--
+IMPORTANT:
+Any resources from this project should be referenced using SRC_PATH preprocessor var.
+See examples below in the boilerplate code
+-->
+
+<!--
+1. HEADER
+Everything inside this cot-app:head tag will be loaded at the end of the page's HEAD tag.
+It should contain stylesheet references (and possibly other stuff) that this application requires.
+-->
+<!-- cot-app:head -->
+
+<!-- @if !IS_EMBEDDED -->
+<!-- standalone apps may want to set some meta tags in here -->
+<title>dts-app-dashboard</title>
+<meta property="og:title" content="dts-app-dashboard">
+<meta name="DC.title" content="dts-app-dashboard">
+<meta name="WT.sp" content="dts-app-dashboard">
+<meta property="og:description" content="Page Description">
+<meta name="DC.description" lang="en" content="Page Description">
+<meta name="description" content="Page Description">
+<meta name="keywords" content="Key Words">
+<meta name="Author" content="City of Toronto">
+<meta name="Owner" content="City of Toronto">
+<meta name="DC.language" content="en-CA">
+<meta name="DC.subject" content="dts-app-dashboard">
+<meta charset="UTF-8">
+<!--@endif-->
+
+<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+
+<!-- From here to the next endbuild tag, all the files will be concatenated into a single file called main.css: -->
+<!--@exec startBuildTagWithCacheBuster('styles/main.css')-->
+<!-- CoreJS uses the following core:css/endinject tag to inject bower_components stylesheet file references: -->
+<!-- core:css -->
+<!-- endinject -->
+
+<!-- place your application stylesheet references here: -->
+<link rel="stylesheet" type="text/css" href="/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/bower_components/datatables.net-buttons-bs/css/buttons.bootstrap.min.css">
+
+<link rel="stylesheet" type="text/css" href="/bower_components/odatatablejs/dist/css/odatatable.min.css">
+
+<link rel="stylesheet" type="text/css" href="<!-- @echo SRC_PATH -->/styles/bbcontrolappsdatatableview.css">
+<link rel="stylesheet" type="text/css" href="<!-- @echo SRC_PATH -->/styles/main.css">
+
+<!-- endbuild -->
+
+<!-- From here to the next endbuild tag, all the files will be concatenated into a single print-only file called core_print.css: -->
+<!--@exec startBuildTagWithCacheBuster('styles/core_print.css', 'media="print"')-->
+<!-- CoreJS uses the following core_print:css/endinject tag to inject bower_components print-only stylesheet file references: -->
+<!-- core_print:css -->
+<!-- endinject -->
+
+<!-- place any application print-only stylesheet references here -->
+
+<!-- endbuild -->
+<!-- cot-app:head end-->
+
+<!--
+2. BODY
+Everything inside this cot-app:body tag will be loaded inside the webpage
+It should contain the HTML elements that make up the visual portion of this application.
+IMPORTANT:
+Remember to use unique element IDs and class names so that this app doesn't interfere with other parts of the cframe/website
+-->
+<!-- cot-app:body -->
+<div id="dts-app-dashboard_container"></div>
+
+<!-- cot-app:body end-->
+
+<!--
+3. FOOTER
+Everything inside the cot-app:footer tag will be loaded at the end of the page's BODY tag.
+It should contain script references that this application requires.
+-->
+<!-- cot-app:footer -->
+
+<!--This google maps link is included for the example code.-->
+<!--Note that because this is loaded via CDN, it MUST be placed before the start of the build tag below-->
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?client=gme-cityoftoronto&amp;channel=example_app"></script>
+
+<!-- From here to the next endbuild tag, all the files will be concatenated into a single file called main.js: -->
+<!--@exec startBuildTagWithCacheBuster('scripts/main.js')-->
+<!-- CoreJS uses the following core:js/endinject tag to inject bower_components javascript file references: -->
+<!-- core:js -->
+<!-- endinject -->
+
+<!-- place your application script references here: -->
+<script type="text/javascript" src="/node_modules/babel-polyfill/dist/polyfill.min.js"></script>
+
+<script type="text/javascript" src="/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="/bower_components/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+<script type="text/javascript" src="/bower_components/jszip/dist/jszip.min.js"></script>
+<script type="text/javascript" src="/bower_components/pdfmake/build/pdfmake.min.js"></script>
+<script type="text/javascript" src="/bower_components/pdfmake/build/vfs_fonts.js"></script>
+<script type="text/javascript" src="/bower_components/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+<script type="text/javascript" src="/bower_components/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script type="text/javascript" src="/bower_components/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="/bower_components/datatables.net-buttons/js/buttons.print.min.js"></script>
+
+<script type="text/javascript" src="/bower_components/odatatablejs/dist/js/odatatable.min.js"></script>
+
+<script type="text/javascript" src="<!-- @echo SRC_PATH -->/scripts/bbcontrollogin.js"></script>
+<script type="text/javascript" src="<!-- @echo SRC_PATH -->/scripts/bbcontrolappsdatatableview.js"></script>
+<script type="text/javascript" src="<!-- @echo SRC_PATH -->/scripts/bbpagelogin.js"></script>
+<script type="text/javascript" src="<!-- @echo SRC_PATH -->/scripts/bbpageapps.js"></script>
+<script type="text/javascript" src="<!-- @echo SRC_PATH -->/scripts/bbpageappsitem.js"></script>
+
+<script type="text/javascript" src="<!-- @echo SRC_PATH -->/scripts/main.js"></script>
+
+<!-- endbuild -->
+
+<!--@if ENV!='prod'-->
+<!-- Here we log out some debug info for non-production builds-->
+<script type="text/javascript">
+  console.log('dts-app-dashboard running on <!--@echo ENV--> environment');
+  console.log('dts-app-dashboard qa release: <!--@echo QA_RELEASE-->');
+  console.log('dts-app-dashboard build: <!--@echo BUILD_ID-->');
+</script>
+<!--@endif-->
+
+<!-- cot-app:footer end-->
