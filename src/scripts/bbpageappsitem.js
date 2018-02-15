@@ -424,8 +424,9 @@ const BBPageAppsItemView = Backbone.View.extend({
         }]
       }]
     });
-    form.setModel(this.model);
+
     form.render({ target: this.$el.find('.form') });
+    form.setModel(this.model);
 
     if (this.model.isNew()) {
       this.$el.find('form').prepend(`
