@@ -299,10 +299,17 @@ const BBPageAppsItemView = Backbone.View.extend({
 
         rows: [{
           fields: [{
+            className: 'col-xs-12 col-md-8',
             id: 'developer',
             title: 'Developer',
             type: 'text',
             bindTo: 'developer'
+          }, {
+            className: 'col-xs-12 col-md-4',
+            id: 'corejsversion',
+            title: 'CoreJS Version',
+            type: 'text',
+            bindTo: 'corejsversion'
           // }, {
           //   id: 'devDate',
           //   title: 'Start Date',
