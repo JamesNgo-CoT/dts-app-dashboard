@@ -39,8 +39,10 @@ $(function () {
   const loginModel = new Backbone.Model();
 
   const login = new cot_login({
-    appName: 'tbstation',
+    appName: 'dts-app-dashboard',
     ccRoot: '/*@echo LOGIN_CCROOT*/',
+    ccPath: '/c3api_auth/v2/AuthService.svc/',
+    ccEndpoint: 'AuthSet',
     onLogin: (cot_login_instance) => loginModel.set(cot_login_instance)
   });
   login.showLogin = function(cbk) {

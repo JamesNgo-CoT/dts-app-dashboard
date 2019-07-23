@@ -23,22 +23,22 @@ let options = {
   preprocessorContext: {
     local: {
       C3API_URL_BASE: 'https://was-intra-sit.toronto.ca',
-      LOGIN_CCROOT: 'https://was-intra-qa.toronto.ca',
+      LOGIN_CCROOT: 'https://was-intra-sit.toronto.ca',
       SOME_ENV: 'SOME_ENV will have this value in the local build environment'
     },
     dev: {
       C3API_URL_BASE: '',
-      LOGIN_CCROOT: 'https://was-intra-qa.toronto.ca',
+      LOGIN_CCROOT: 'https://was-intra-sit.toronto.ca',
       SOME_ENV: 'SOME_ENV will have this value in the dev build environment'
     },
     qa: {
       C3API_URL_BASE: '',
-      LOGIN_CCROOT: '',
+      LOGIN_CCROOT: 'https://was-intra-qa.toronto.ca',
       SOME_ENV: 'SOME_ENV will have this value in the qa build environment'
     },
     prod: {
       C3API_URL_BASE: '',
-      LOGIN_CCROOT: '',
+      LOGIN_CCROOT: 'https://insideto-secure.toronto.ca',
       SOME_ENV: 'SOME_ENV will have this value in the prod build environment'
     },
     SOME_OTHER_ENV: 'this var will be in the context of any environment'

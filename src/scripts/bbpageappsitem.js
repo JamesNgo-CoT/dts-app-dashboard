@@ -217,6 +217,20 @@ const BBPageAppsItemView = Backbone.View.extend({
             bindTo: 'visibility'
           }]
         }, {
+          fields: [{
+            id: 'accessGroups',
+            title: 'Access Groups',
+            type: 'textarea',
+            bindTo: 'accessGroups'
+          }]
+        }, {
+          fields: [{
+            id: 'cookies',
+            title: 'Cookie Names',
+            type: 'text',
+            bindTo: 'cookies'
+          }]
+        }, {
           grid: {
             id: 'dependencies',
             bindTo: 'dependencies',
@@ -509,6 +523,18 @@ const BBPageAppsItemView = Backbone.View.extend({
             title: 'Visibility',
             type: 'static',
             value: this.model.get('visibility') || '-'
+          }],
+        }, {
+          fields: [{
+            type: 'html',
+            html: `<span class="staticlabel"><span>Access Groups</span></span><p>${this.model.get('accessGroups') ? this.model.get('accessGroups').replace(/(\r\n|\r|\n)/g, '<br>') : '-'}</p>`
+          }]
+        }, {
+          fields: [{
+            id: 'cookies',
+            title: 'Cookie Names',
+            type: 'static',
+            value: this.model.get('cookies') || '-'
           }]
         }, {
           // fields: [{
