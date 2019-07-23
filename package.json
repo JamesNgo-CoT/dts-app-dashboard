@@ -1,7 +1,7 @@
 {
   "name": "dts-app-dashboard",
   "version": "0.0.0",
-  "qaRelease": 0,
+  "qaRelease": 1,
   "description": "Describe this app",
   "author": "Your name here",
   "contributors": [],
