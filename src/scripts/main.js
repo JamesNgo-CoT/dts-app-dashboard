@@ -1,193 +1,121 @@
-// The main javascript file for bikestation.
+// The main javascript file for feis_bicycle_parking.
+// IMPORTANT:
+// Any resources from this project should be referenced using SRC_PATH preprocessor var
+// Ex: let myImage = '/*@echo SRC_PATH*//img/sample.jpg';
 
 $(function () {
-  $.fn.oDataTable.headerWrapperString = '<div class="hidden-print" style="margin-right: -15px;">';
+  const appTitle = 'DTS Application Dashboard';
+  const app = new cot_app(appTitle, {
+    hasContentTop: false,
+    hasContentBottom: false,
+    hasContentRight: false,
+    hasContentLeft: false,
+    searchcontext: 'INTRA'
+  });
 
-  // ----------------------------------------------------------------------
-  // App.
-
-  const app = new cot_app('dts-app-dashboard');
-  app.render();
-  app.setTitle('DTS Application Dashboard');
   app.setBreadcrumb([
-    { name: 'DTS App Dashboard' }
+    { 'name': appTitle, 'link': '#home' }
   ], true);
 
-  // ----------------------------------------------------------------------
-  // Update c-frame.
+  app.render();
 
-  $('#app-breadcrumb > .row > .hidden-xs')
-    .removeClass('hidden-xs');
+  ////////////////////////////////////////////////////////////////////////////////
 
-  $('#breadcrumb-bar')
-    .addClass('breadcrumb-bar-with-login-bar')
-    .after('<div id="login-bar"></div>');
+  const wrapper = document.getElementById('dts-app-dashboard_container');
+  app.bodyContainer = wrapper.appendChild(document.createElement('div'));
+  app.bodyView = null;
 
-  $('#app-header .securesite').addClass('hidden-print');
+  //////////////////////////////////////////////////////////////////////////////
 
-  $('#dts-app-dashboard_container')
-    .addClass('row')
-    .html(`
-      <div id="dts-app-dashboard_content" class="col-xs-12"></div>
-    `);
-
-  const $content = $('#dts-app-dashboard_content');
-
-  // ----------------------------------------------------------------------
-  // Login.
-
-  const loginModel = new Backbone.Model();
-
-  const login = new cot_login({
-    appName: 'dts-app-dashboard',
-    ccRoot: '/*@echo LOGIN_CCROOT*/',
-    ccPath: '/c3api_auth/v2/AuthService.svc/',
-    ccEndpoint: 'AuthSet',
-    onLogin: (cot_login_instance) => loginModel.set(cot_login_instance)
-  });
-  login.showLogin = function(cbk) {
-    this.modal = cot_app.showModal({
-      title: 'User Login',
-      body: `
-        ${this.options.loginMessage}
-        <form>
-          <div class="form-group">
-            <label for="cot_login_username">Username</label>:
-            <input class="form-control" id="cot_login_username">
-          </div>
-          <div class="form-group">
-            <label for="cot_login_password">Password</label>:
-            <input class="form-control" type="password" id="cot_login_password">
-          </div>
-        </form>
-      `,
-      footerButtonsHtml: `
-        <button class="btn btn-success" type="button" data-dismiss="modal">Cancel</button>
-        <button class="btn btn-success btn-cot-login" type="button">Login</button>
-      `,
-      originatingElement: $(this.options['welcomeSelector']).find('a.login'),
-      className: 'cot-login-modal',
-      onShown: () => {
-        this.modal.find('.btn-cot-login').click(() => {
-          this._login();
-        });
-        this.modal.find('.modal-body input').keydown((e) => {
-          if ((e.charCode || e.keyCode || 0) === 13) {
-            this._login();
-          }
-        });
-      },
-      onHidden: () => {
-        cbk();
-      }
-    });
-  };
-
-  const loginView = new BBControlLoginView({
-    model: loginModel,
-    login: login
+  const AuthModel = Backbone.AuthModel.extend({
+    webStorageKey: `Auth`,
+    urlRoot: '/* @echo C3AUTH_URL */',
+    app: appTitle
   });
 
-  $('#login-bar').append(loginView.$el);
-  loginView.render();
+  Backbone.authModel = new AuthModel();
 
-  // ----------------------------------------------------------------------
-  // Router.
+  const AppLoginButtonView = LoginButtonView.extend({
+    loginFragment: 'login'
+  });
 
-  const router = window.router = new (Backbone.Router.extend({
+  const loginButtonView = new AppLoginButtonView({
+    className: 'loginButtonView',
+    model: Backbone.authModel
+  });
+  const lockIcon = document.querySelector('.securesite img');
+  lockIcon.parentNode.insertBefore(loginButtonView.el, lockIcon);
+  loginButtonView.render();
+
+  //////////////////////////////////////////////////////////////////////////////
+
+  const Router = Backbone.BaseRouter.extend({
     routes: {
-      'apps': 'appsPage',
-      'app(/)(:id)(/)(:action)': 'appsItemPage',
+      'home': 'routeApps',
 
-      '*others': () => {
-        router.navigate('apps', { trigger: true });
-      }
+      'login': 'routeLoginPage',
+
+      '*default': 'routeDefault'
     },
 
-    loginPage: function() {
-      app.setBreadcrumb([
-        { name: 'DTS App Dashboard', link: '#' },
-        { name: 'Login Required' }
-      ], true);
-      $content.children('div').hide();
+    ////////////////////////////////////////////////////////////////////////////
 
-      loginModel.clear();
-      loginView.render();
+    routeApps() {
+    },
 
-      if (this.loginPageView) {
-        this.loginPageView.$el.show();
+    ////////////////////////////////////////////////////////////////////////////
+
+    routeLoginPage(queryString) {
+      const navigateBack = () => {
+        const queryObject = toQueryObject(queryString);
+        if (queryObject && queryObject.redirect != null) {
+          this.navigate(queryObject.redirect, { trigger: true });
+        } else {
+          const defaultFragment = _.result(this, 'defaultFragment');
+          this.navigate(defaultFragment, { trigger: true });
+        }
+      }
+
+      if (Backbone.authModel.isLoggedIn()) {
+        navigateBack();
       } else {
-        this.loginPageView = new BBPageLoginView();
-        $content.append(this.loginPageView.$el);
-        this.loginPageView.render();
-      }
-    },
-
-    appsPage: function() {
-      if (!login.isLoggedIn()) {
-        this.loginPage();
-        return;
-      }
-
-      app.setBreadcrumb([
-        { name: 'DTS App Dashboard', link: '#' },
-        { name: 'Apps' }
-      ], true);
-      $content.children('div').hide();
-
-      if (this.appsView) {
-        this.appsView.$el.show();
-        this.appsView.reload(false);
-      } else {
-        this.appsView = new BBPageAppsView({ login: login });
-        $content.append(this.appsView.render().$el);
-      }
-    },
-
-    appsItemPage: function(id, action) {
-      if (!login.isLoggedIn()) {
-        this.loginPage();
-        return;
-      }
-
-      app.setBreadcrumb([
-        { name: 'DTS App Dashboard', link: '#' },
-        { name: 'Apps', link: '#apps' },
-        { name: 'App' }
-      ], true);
-      $content.children('div').hide();
-
-      const appsItemPageModel = window.model = new BBPageAppsItemModel({});
-
-      if (this.appsItemPageView) {
-        this.appsItemPageView.remove();
-      }
-
-      this.appsItemPageView = new BBPageAppsItemView({
-        model: appsItemPageModel,
-        login: login,
-        router: router
-      });
-
-      $content.append(this.appsItemPageView.$el);
-
-      if (id && id !== 'new') {
-        appsItemPageModel.set('id', id);
-        appsItemPageModel.fetch({
-          error: () => {
-            appsItemPageModel.clear();
-            appsItemPageModel.set(appsItemPageModel.defaults);
-            this.appsItemPageView.render(action);
-          },
-          success: () => {
-            this.appsItemPageView.render(action);
-          }
+        const view = new LoginPageView({
+          className: 'loginPageView',
+          model: Backbone.authModel
         });
-      } else {
-        this.appsItemPageView.render(action);
+        view.on('success', () => {
+          navigateBack();
+        });
+
+        app.bodyView = swapView(app.bodyContainer, app.bodyView, view);
+
+        app.setTitle(appTitle);
+        app.setBreadcrumb([
+          app.breadcrumbItems[0],
+          {
+            name: 'Login'
+          }
+        ], true);
+
+        loginButtonView.hide();
+
+        if (this.showFocus) {
+          app.titleElement.focus();
+        } else {
+          this.showFocus = true;
+        }
+
+        return (name) => {
+          loginButtonView.show();
+        }
       }
     }
-  }))();
+  });
+
+  const router = new Router();
+  router.on('route', () => {
+    loginButtonView.render();
+  });
 
   Backbone.history.start();
 });

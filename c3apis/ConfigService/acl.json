@@ -1,0 +1,12 @@
+[
+	{
+		"group": "staff",
+		"resource": "/c3api_config/v2/ConfigService.svc/ConfigSet/dts_app_dashboard/**",
+		"action": "**"
+	},
+	{
+		"group": "anonymous",
+		"resource": "/c3api_data/v2/DataAccess.svc/dts_app_dashboard/**",
+		"action": "**"
+	}
+]

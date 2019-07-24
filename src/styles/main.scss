@@ -1,102 +1,27 @@
+//The main scss file for dts-app-dashboard.
 
-#breadcrumb-bar.breadcrumb-bar-with-login-bar {
-  float: left;
-}
+//IMPORTANT:
+// Any resources from this project should be referenced using SRC_PATH preprocessor var
+// Ex: background-image: url(/* @echo SRC_PATH*//img/sample.jpg)
 
-#login-bar {
-  float: right;
-  padding: 1rem;
+@import '../scripts/lib/comp/loginbutton.scss';
 
-  .btn {
-    margin-bottom: -6px;
-    margin-top: -6px;
+@import '../scripts/comp/loginpage.scss';
+
+.securesite {
+  position: relative;
+
+  .loginButtonView {
+    @extend %LoginButtonView;
+
+    position: absolute;
+    right: 65px;
+    top: 8px;
   }
 }
 
-#maincontent {
-  button.btn {
-    margin: 0;
-  }
-
-  form {
-    &.form-inline {
-      .form-group {
-        margin-bottom: 10px;
-      }
-    }
-
-    a.btn {
-      text-decoration: none;
-
-      &.btn-default {
-        color: #333;
-      }
-    }
-
-    .grid-object {
-      padding-top: 0;
-      padding-bottom: 0;
-
-      .grid-title {
-        margin-bottom: 0;
-      }
-
-      .grid-table {
-        margin-top: 0;
-        margin-bottom: 10px;
-      }
-    }
-
-    .paginate_button {
-      a {
-        text-decoration: none;
-        color: #337ab7;
-      }
-
-      &.active {
-        a {
-          color: #fff;
-        }
-      }
-
-      &.disabled {
-        a {
-          color: #777;
-        }
-      }
-    }
-
-    .form-group {
-      margin-bottom: 10px;
-
-      .staticlabel + p {
-        margin-bottom: 0;
-      }
-    }
-
-    .panel {
-      margin-bottom: 10px;
-    }
-  }
-
-  .panel-body {
-    table tr:nth-of-type(2n+2) {
-      background-color: #d2d2d2;
-    }
-  }
-
-  nav {
-    ul {
-      margin-bottom: 0;
-    }
-  }
-
-  ul {
-    margin: 0 0 10px 0;
-    overflow: visible;
-
-    ul {
-      margin-bottom: 0;
-    }
+#dts-app-dashboard_container {
+  .loginPageView {
+    @extend %LoginPageView;
   }
 }

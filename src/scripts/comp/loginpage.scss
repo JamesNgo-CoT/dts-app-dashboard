@@ -1,0 +1,7 @@
+@import '../lib/comp/loginform.scss';
+
+%LoginPageView {
+  .formView {
+    @extend %LoginFormView;
+  }
+}
