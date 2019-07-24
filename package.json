@@ -45,7 +45,7 @@
   },
   "coreConfig": {
     "isEmbedded": false,
-    "includeFormValidation": false,
+    "includeFormValidation": true,
     "includeEditableSelect": false,
     "includeIntlTelInput": false,
     "includeJQueryMaskedInput": false,
@@ -57,7 +57,7 @@
     "includeLogin": false,
     "includeRangePicker": false,
     "includeMoment": false,
-    "includeModeling": false,
+    "includeModeling": true,
     "includeWebtrends": false,
     "isInternetStandaloneApp": false,
     "includeDropzone": false,
