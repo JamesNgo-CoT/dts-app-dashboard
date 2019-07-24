@@ -1,0 +1,3 @@
+[submodule "src/scripts/lib"]
+	path = src/scripts/lib
+	url = https://github.com/JamesNgo-CoT/dev_bb_lib.git
