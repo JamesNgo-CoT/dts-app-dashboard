@@ -18,3 +18,5 @@ test/bower_components
 
 #ignore developer-specific environment settings
 .env
+
+sid.txt
