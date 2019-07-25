@@ -1,0 +1,100 @@
+{
+  "columns": [
+    {
+      "data": "app",
+      "title": "App",
+      "type": "string"
+    },
+    {
+      "data": "devs",
+      "title": "Developer(s)",
+      "type": "string"
+    },
+    {
+      "data": "apis",
+      "title": "API(s)",
+      "type": "string"
+    },
+    {
+      "choices": "https://config.cc.toronto.ca:49093/c3api_data/v2/DataAccess.svc/dts_app_dashboard/Media('apps_devphase_choices.json')/$value",
+      "choicesMap": "apps_devPhase_choicesMap",
+      "createdCell": "apps_allPhase_createdCell",
+      "data": "devPhase",
+      "render": "apps_allPhase_render",
+      "title": "DEV",
+      "type": "boolean",
+      "width": "70px"
+    },
+    {
+      "choices": "https://config.cc.toronto.ca:49093/c3api_data/v2/DataAccess.svc/dts_app_dashboard/Media('apps_qaphase_choices.json')/$value",
+      "choicesMap": "apps_qaPhase_choicesMap",
+      "createdCell": "apps_allPhase_createdCell",
+      "data": "qaPhase",
+      "render": "apps_allPhase_render",
+      "title": "QA",
+      "type": "boolean",
+      "width": "70px"
+    },
+    {
+      "choices": "https://config.cc.toronto.ca:49093/c3api_data/v2/DataAccess.svc/dts_app_dashboard/Media('apps_uatphase_choices.json')/$value",
+      "choicesMap": "apps_uatPhase_choicesMap",
+      "createdCell": "apps_allPhase_createdCell",
+      "data": "uatPhase",
+      "render": "apps_allPhase_render",
+      "title": "UAT",
+      "type": "boolean",
+      "width": "70px"
+    },
+    {
+      "choices": "https://config.cc.toronto.ca:49093/c3api_data/v2/DataAccess.svc/dts_app_dashboard/Media('apps_aodaphase_choices.json')/$value",
+      "choicesMap": "apps_aodaPhase_choicesMap",
+      "createdCell": "apps_allPhase_createdCell",
+      "data": "aodaPhase",
+      "render": "apps_allPhase_render",
+      "title": "AODA",
+      "type": "boolean",
+      "width": "70px"
+    },
+    {
+      "choices": "https://config.cc.toronto.ca:49093/c3api_data/v2/DataAccess.svc/dts_app_dashboard/Media('apps_prodphase_choices.json')/$value",
+      "choicesMap": "apps_prodPhase_choicesMap",
+      "createdCell": "apps_allPhase_createdCell",
+      "data": "prodPhase",
+      "render": "apps_allPhase_render",
+      "title": "PROD",
+      "type": "boolean",
+      "width": "70px"
+    },
+    {
+      "orderable": false,
+      "render": "app_view_render",
+      "searchable": false,
+      "width": "57px"
+    }
+  ],
+  "data": [
+    {
+      "app": "Application Name",
+      "devs": "Lastname, Firstname",
+      "apis": "",
+      "devPhase": true,
+      "qaPhase": true,
+      "uatPhase": true,
+      "aodaPhase": false,
+      "prodPhase": false
+    },
+    {
+      "app": "Application Name",
+      "devs": "Lastname, Firstname",
+      "apis": "",
+      "devPhase": true,
+      "qaPhase": true,
+      "uatPhase": true,
+      "aodaPhase": true,
+      "prodPhase": true
+    }
+  ],
+  "scripts": [
+    "https://config.cc.toronto.ca:49093/c3api_data/v2/DataAccess.svc/dts_app_dashboard/Media('apps_datatable.js')/$value"
+  ]
+}

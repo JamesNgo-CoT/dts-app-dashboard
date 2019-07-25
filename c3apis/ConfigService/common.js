@@ -3,7 +3,7 @@ module.exports.DATAACCESS_BASE_URL = 'https:config.cc.toronto.ca:49093/c3api_dat
 // var DATAACCESS_BASE_URL = 'https://was-intra-qa.toronto.ca/c3api_data/v2/DataAccess.svc'; // QA
 // var DATAACCESS_BASE_URL = 'https://insideto-secure.toronto.ca/c3api_data/v2/DataAccess.svc'; // PROD
 
-module.exports.DATAACCESS_APP_BASE_URL = module.exports.DATAACCESS_BASE_URL + '/dts-app-dashboard';
+module.exports.DATAACCESS_APP_BASE_URL = module.exports.DATAACCESS_BASE_URL + '/dts_app_dashboard';
 
 ////////////////////////////////////////////////////////////////////////////////
 
