@@ -1,0 +1,14 @@
+@import '../lib/comp/datatable.scss';
+
+%AppsPageView {
+  .datatableView {
+    @extend %DatatableView;
+
+    td.highlighted {
+      background-color: #1dd1a1;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-align: center;
+    }
+  }
+}

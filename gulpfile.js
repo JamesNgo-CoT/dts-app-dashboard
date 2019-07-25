@@ -9,17 +9,13 @@ core.embeddedApp.createTasks(gulp, {
   deploymentPath: '',
   preprocessorContext: {
     local: {
-      C3AUTH_URL: 'https://config.cc.toronto.ca:49090/c3api_auth/v2/AuthService.svc/AuthSet'
+      C3AUTH_URL: 'https://config.cc.toronto.ca:49090/c3api_auth/v2/AuthService.svc/AuthSet',
+
+      C3DATA_APPSPAGE_APPS_DATATABLE_URL: 'https://config.cc.toronto.ca:49093/c3api_data/v2/DataAccess.svc/dts_app_dashboard/Media(\\\'apps_datatable.json\\\')/$value'
     },
-    dev: {
-      C3AUTH_URL: 'https://was-intra-sit.toronto.ca/c3api_auth/v2/AuthService.svc/AuthSet'
-    },
-    qa: {
-      C3AUTH_URL: 'https://was-intra-qa.toronto.ca/c3api_auth/v2/AuthService.svc/AuthSet'
-    },
-    prod: {
-      C3AUTH_URL: 'https://insideto-secure.toronto.ca/c3api_auth/v2/AuthService.svc/AuthSet'
-    }
+    dev: {},
+    qa: {},
+    prod: {}
   }
 });
 
@@ -30,7 +26,7 @@ const c3api = require('./dev_c3api_helper');
 ////////////////////////////////////////////////////////////////////////////////
 
 const CONFIG_SERVICE_FOLDER = './c3apis/ConfigService';
-const CONFIG_SERVICE_QUALIFIEDNAME_PREFIX = 'dts-app-dashboard';
+const CONFIG_SERVICE_QUALIFIEDNAME_PREFIX = 'dts_app_dashboard';
 
 gulp.task('c3api_config', () => {
   let requestOptions = c3api.helper.cmdArgs('--requestOptions');
@@ -62,7 +58,7 @@ gulp.task('c3api_config', () => {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-const DATAACCESS_APP = 'dts-app-dashboard';
+const DATAACCESS_APP = 'dts_app_dashboard';
 const DATAACCESS_FOLDER = './c3apis/DataAccess';
 
 gulp.task('c3api_dataaccess', () => {
@@ -96,7 +92,7 @@ gulp.task('c3api_dataaccess', () => {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-const DATAACCESS_MEDIA_APP = 'dts-app-dashboard';
+const DATAACCESS_MEDIA_APP = 'dts_app_dashboard';
 const DATAACCESS_MEDIA_ENTITY = 'Media';
 const DATAACCESS_MEDIA_FOLDER = './c3apis/DataAccess/Media';
 

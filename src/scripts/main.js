@@ -24,6 +24,7 @@ $(function () {
   const wrapper = document.getElementById('dts-app-dashboard_container');
   app.bodyContainer = wrapper.appendChild(document.createElement('div'));
   app.bodyView = null;
+  app.bodyModels = {};
 
   //////////////////////////////////////////////////////////////////////////////
 
@@ -61,6 +62,30 @@ $(function () {
     ////////////////////////////////////////////////////////////////////////////
 
     routeApps() {
+      if (app.bodyModels.appsPageCollection === null) {
+        const AppsPageCollection = Backbone.BaseCollection.extend({});
+        app.bodyModels.appsPageCollection = new AppsPageCollection();
+      }
+
+      app.bodyView = swapView(app.bodyContainer, app.bodyView, new AppsPageView({
+        className: 'appsPageView',
+        collection: app.bodyModels.appsPageCollection
+      }));
+
+      app.setTitle(appTitle);
+      app.setBreadcrumb([
+        app.breadcrumbItems[0]
+      ], true);
+
+      if (this.showFocus) {
+        app.titleElement.focus();
+      } else {
+        this.showFocus = true;
+      }
+
+      return () => {
+        app.bodyModels.appsPageCollection = null;
+      };
     },
 
     ////////////////////////////////////////////////////////////////////////////

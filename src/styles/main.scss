@@ -6,6 +6,7 @@
 
 @import '../scripts/lib/comp/loginbutton.scss';
 
+@import '../scripts/comp/appspage.scss';
 @import '../scripts/comp/loginpage.scss';
 
 .securesite {
@@ -21,6 +22,10 @@
 }
 
 #dts-app-dashboard_container {
+  .appsPageView {
+    @extend %AppsPageView;
+  }
+
   .loginPageView {
     @extend %LoginPageView;
   }
