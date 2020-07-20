@@ -52,7 +52,9 @@ $(function () {
 
   const Router = Backbone.BaseRouter.extend({
     routes: {
-      'home': 'routeApps',
+      'home': 'routeAppsPage',
+
+      'apps/:app': 'routeAppDetailsPage',
 
       'login': 'routeLoginPage',
 
@@ -61,9 +63,14 @@ $(function () {
 
     ////////////////////////////////////////////////////////////////////////////
 
-    routeApps() {
-      if (app.bodyModels.appsPageCollection === null) {
-        const AppsPageCollection = Backbone.BaseCollection.extend({});
+    routeAppsPage() {
+      if (app.bodyModels.appsPageCollection == null) {
+        const AppsPageCollection = Backbone.BaseCollection.extend({
+          url: '/* @echo C3DATA_APPSPAGE_APPS_URL */',
+          webStorage: sessionStorage,
+          webStorageKey: 'appsPage'
+        });
+
         app.bodyModels.appsPageCollection = new AppsPageCollection();
       }
 
@@ -86,6 +93,26 @@ $(function () {
       return () => {
         app.bodyModels.appsPageCollection = null;
       };
+    },
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    routeAppDetailsPage() {
+      app.bodyView = swapView(app.bodyContainer, app.bodyView, new AppDetailsPageView({}));
+
+      app.setTitle('Application Details');
+      app.setBreadcrumb([
+        app.breadcrumbItems[0],
+        { name: 'Application Details' }
+      ], true);
+
+      if (this.showFocus) {
+        app.titleElement.focus();
+      } else {
+        this.showFocus = true;
+      }
+
+      return () => {};
     },
 
     ////////////////////////////////////////////////////////////////////////////

@@ -1,6 +1,10 @@
 @import '../lib/comp/datatable.scss';
 
 %AppsPageView {
+  button {
+    margin: 0;
+  }
+
   .datatableView {
     @extend %DatatableView;
 
@@ -10,5 +14,17 @@
       font-weight: bold;
       text-align: center;
     }
+
+    .dt-buttons {
+      display: none;
+    }
+  }
+
+  & > .row > div {
+    margin-bottom: 10px;
+  }
+
+  .btn-group-action {
+    display: inline-block;
   }
 }

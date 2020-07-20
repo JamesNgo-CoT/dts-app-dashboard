@@ -1,25 +1,26 @@
 function apps_devPhase_choicesMap(choices) {
-  choices.unshift({ text: '∀ DEV', value: '' });
+  choices.unshift({ text: '', value: '' });
   return choices;
 }
 
 function apps_qaPhase_choicesMap(choices) {
-  choices.unshift({ text: '∀ QA', value: '' });
+  choices.unshift({ text: '', value: '' });
   return choices;
 }
 
 function apps_uatPhase_choicesMap(choices) {
-  choices.unshift({ text: '∀ UAT', value: '' });
+  choices.unshift({ text: '', value: '' });
   return choices;
 }
 
 function apps_aodaPhase_choicesMap(choices) {
-  choices.unshift({ text: '∀ AODA', value: '' });
+  choices.unshift({ text: '', value: '' });
   return choices;
 }
 
 function apps_prodPhase_choicesMap(choices) {
-  choices.unshift({ text: '∀ PROD', value: '' });
+  // choices.unshift({ text: '∀ PROD', value: '' });
+  choices.unshift({ text: '', value: '' });
   return choices;
 }
 

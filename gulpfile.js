@@ -11,7 +11,8 @@ core.embeddedApp.createTasks(gulp, {
     local: {
       C3AUTH_URL: 'https://config.cc.toronto.ca:49090/c3api_auth/v2/AuthService.svc/AuthSet',
 
-      C3DATA_APPSPAGE_APPS_DATATABLE_URL: 'https://config.cc.toronto.ca:49093/c3api_data/v2/DataAccess.svc/dts_app_dashboard/Media(\\\'apps_datatable.json\\\')/$value'
+      C3DATA_APPSPAGE_APPS_URL: 'https://config.cc.toronto.ca:49093/c3api_data/v2/DataAccess.svc/dts_app_dashboard/apps',
+      C3DATA_APPSPAGE_APPS_DATATABLE_DEFINITION_URL: 'https://config.cc.toronto.ca:49093/c3api_data/v2/DataAccess.svc/dts_app_dashboard/Media(\\\'apps_datatable.json\\\')/$value'
     },
     dev: {},
     qa: {},
