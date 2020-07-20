@@ -243,31 +243,35 @@ const BBPageAppsItemView = Backbone.View.extend({
               {
                 id: 'api',
                 type: 'dropdown',
-                choices: [{
-                  text: ''
-                }, {
-                  text: 'Config API'
-                }, {
-                  text: 'Config API v2'
-                }, {
-                  text: 'Content API'
-                }, {
-                  text: 'DataAccess API'
-                }, {
-                  text: 'DataAccess API v2'
-                }, {
-                  text: 'Event Dispatch 2'
-                }, {
-                  text: 'Repo API'
-                }, {
-                  text: 'Repo API v2'
-                }, {
-                  text: 'Scheduler API'
-                }, {
-                  text: 'Submit API'
-                }, {
-                  text: 'Upload API'
-                }],
+                // choices: [{
+                //   text: ''
+                // }, {
+                //   text: 'Config API'
+                // }, {
+                //   text: 'Config API v2'
+                // }, {
+                //   text: 'Content API'
+                // }, {
+                //   text: 'DataAccess API'
+                // }, {
+                //   text: 'DataAccess API v2'
+                // }, {
+                //   text: 'Event Dispatch 2'
+                // }, {
+                //   text: 'Repo API'
+                // }, {
+                //   text: 'Repo API v2'
+                // }, {
+                //   text: 'Scheduler API'
+                // }, {
+                //   text: 'Submit API'
+                // }, {
+                //   text: 'Upload API'
+                // }],
+                // choices: '/c3api_config/v2/ConfigService.svc/ConfigSet(\'dts_app_dashboard/dependencies.json\')/ConfigContent',
+                // choicesMap: function(choices) {
+                //   return [{ text: 'Config API' }];
+                // },
                 bindTo: 'api'
               }, {
                 id: 'url',
@@ -446,34 +450,38 @@ const BBPageAppsItemView = Backbone.View.extend({
       }]
     });
 
-    form.render({ target: this.$el.find('.form') });
     form.setModel(this.model);
 
-    if (this.model.isNew()) {
-      this.$el.find('form').prepend(`
-        <p>
-          <a href="#apps" class="btn btn-default btn-cancel">Cancel</a>
-          <button type="button" class="btn btn-success btn-save">Create</button>
-        </p>
-      `).append(`
-        <p>
-          <a href="#apps" class="btn btn-default btn-cancel">Cancel</a>
-          <button type="button" class="btn btn-success btn-save">Create</button>
-        </p>
-      `);
-    } else {
-      this.$el.find('form').prepend(`
-        <p>
-          <a href="#app/${this.model.get('id')}/view" class="btn btn-default btn-cancel">Cancel</a>
-          <button type="button" class="btn btn-success btn-save">Save</button>
-        </p>
-      `).append(`
-        <p>
-          <a href="#app/${this.model.get('id')}/view" class="btn btn-default btn-cancel">Cancel</a>
-          <button type="button" class="btn btn-success btn-save">Save</button>
-        </p>
-      `);
-    }
+    form.render({ target: this.$el.find('.form') })
+      .then(() => {
+        console.log(form, this.$el, this.$el.find('form'))
+
+        if (this.model.isNew()) {
+          this.$el.find('form').prepend(`
+            <p>
+              <a href="#apps" class="btn btn-default btn-cancel">Cancel</a>
+              <button type="button" class="btn btn-success btn-save">Create</button>
+            </p>
+          `).append(`
+            <p>
+              <a href="#apps" class="btn btn-default btn-cancel">Cancel</a>
+              <button type="button" class="btn btn-success btn-save">Create</button>
+            </p>
+          `);
+        } else {
+          this.$el.find('form').prepend(`
+            <p>
+              <a href="#app/${this.model.get('id')}/view" class="btn btn-default btn-cancel">Cancel</a>
+              <button type="button" class="btn btn-success btn-save">Save</button>
+            </p>
+          `).append(`
+            <p>
+              <a href="#app/${this.model.get('id')}/view" class="btn btn-default btn-cancel">Cancel</a>
+              <button type="button" class="btn btn-success btn-save">Save</button>
+            </p>
+          `);
+        }
+      });
 
     this.$el.find('h2').focus();
   },
@@ -652,23 +660,26 @@ const BBPageAppsItemView = Backbone.View.extend({
         rows: []
       }]
     });
-    form.render({ target: this.$el.find('.form') });
+    form.render({ target: this.$el.find('.form') })
+      .then(() => {
+        console.log('FORM', form, 'EL', this.$el, 'FORM', this.$el.find('form'));
 
-    this.$el.find('form').prepend(`
-      <p class="hidden-print">
-        <a href="#apps" class="btn btn-default btn-back">Back to Apps</a>
-        <a href="#app/${this.model.get('id')}/update" class="btn btn-default btn-update">Update App</a>
-        ${this.model.get('isRetired') ? '<button type="button" class="btn btn-default" disabled>New Version</button>' : '<button type="button" class="btn btn-default btn-version">New Version</button>' }
-        <button type="button" class="btn btn-danger btn-delete pull-right">Delete App</button>
-      </p>
-    `).append(`
-      <p class="hidden-print">
-        <a href="#apps" class="btn btn-default btn-back">Back to Apps</a>
-        <a href="#app/${this.model.get('id')}/update" class="btn btn-default btn-update">Update App</a>
-        ${this.model.get('isRetired') ? '<button type="button" class="btn btn-default" disabled>New Version</button>' : '<button type="button" class="btn btn-default btn-version">New Version</button>' }
-        <button type="button" class="btn btn-danger btn-delete pull-right">Delete App</button>
-      </p>
-    `);
+        this.$el.find('form').prepend(`
+        <p class="hidden-print">
+          <a href="#apps" class="btn btn-default btn-back">Back to Apps</a>
+          <a href="#app/${this.model.get('id')}/update" class="btn btn-default btn-update">Update App</a>
+          ${this.model.get('isRetired') ? '<button type="button" class="btn btn-default" disabled>New Version</button>' : '<button type="button" class="btn btn-default btn-version">New Version</button>' }
+          <button type="button" class="btn btn-danger btn-delete pull-right">Delete App</button>
+        </p>
+      `).append(`
+        <p class="hidden-print">
+          <a href="#apps" class="btn btn-default btn-back">Back to Apps</a>
+          <a href="#app/${this.model.get('id')}/update" class="btn btn-default btn-update">Update App</a>
+          ${this.model.get('isRetired') ? '<button type="button" class="btn btn-default" disabled>New Version</button>' : '<button type="button" class="btn btn-default btn-version">New Version</button>' }
+          <button type="button" class="btn btn-danger btn-delete pull-right">Delete App</button>
+        </p>
+      `);
+      });
 
     this.datatableView = new BBControlAppsDatatableView({ login: this.login });
 
